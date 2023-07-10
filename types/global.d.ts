@@ -6,7 +6,7 @@ import type {
 } from 'vue';
 
 declare global {
-  declare type PropType<T> = VuePropType<T>;
+  declare type PropType = VuePropType;
   declare type VueNode = VNodeChild | JSX.Element;
 
   declare type Fn = () => void;

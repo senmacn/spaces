@@ -3,8 +3,12 @@
     windows_subsystem = "windows"
 )]
 
+use database::db::{init_db};
 use tauri::api::shell;
 use tauri::{Manager};
+
+mod database;
+mod utils;
 
 #[tauri::command]
 fn backend_add(number: i32) -> i32 {
@@ -13,6 +17,8 @@ fn backend_add(number: i32) -> i32 {
 }
 
 fn main() {
+    let conn = init_db();
+
     let ctx = tauri::generate_context!();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![backend_add])
