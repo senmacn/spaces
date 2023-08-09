@@ -1,0 +1,40 @@
+.windows-tools {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 42px;
+  width: 100%;
+  z-index: 1002;
+  line-height: 42px;
+  text-align: right;
+  padding-right: 10px;
+  .titlebar-button {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 32px;
+    width: 42px;
+    padding: 4px 15px;
+    margin-top: 5px;
+    border-radius: 6px;
+    outline: none;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    touch-action: manipulation;
+    line-height: 25px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+}

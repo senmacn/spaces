@@ -1,18 +1,48 @@
 <template>
-  <a-row :gutter="8">
-    <a-col>
-      <a-card class="grid-item"> + </a-card>
-    </a-col>
-    <a-col v-for="project in projectList" :key="project.uuid">
+  <div class="project-grids">
+    <template v-for="project in visibleProjects" :key="project.id">
       <project-grid-item :project="project"></project-grid-item>
-    </a-col>
-  </a-row>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts">
   import ProjectGridItem from './children/project-grid-item.vue';
+  import { useProjectStore } from '@/store/modules/project-state';
+  import { FilterType } from './common/types';
 
-  const projectList: ProjectItem[] = inject('projectList', []);
+  const projectState = useProjectStore();
+  const visibleProjects = computed(() => {
+    let visibleProjects = projectState.getProjectItems;
+    if (projectState.getSearch) {
+      visibleProjects = projectState.getProjectItems.filter((p) =>
+        p.name.includes(projectState.getSearch),
+      );
+    }
+    switch (projectState.getFilter) {
+      case FilterType.STAR:
+        visibleProjects = visibleProjects.filter((v) => v.favorite);
+        break;
+      case FilterType.DELETED:
+        visibleProjects = visibleProjects.filter((v) => !!v.deletedAt);
+        break;
+      case FilterType.TAG:
+        break;
+      case FilterType.ALL:
+      default:
+        break;
+    }
+
+    return visibleProjects;
+  });
 </script>
 
-<style></style>
+<style lang="less">
+  .project-grids {
+    display: flex;
+    flex-wrap: wrap;
+    > div {
+      margin: 8px;
+    }
+  }
+</style>

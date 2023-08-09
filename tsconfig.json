@@ -22,11 +22,11 @@
     "lib": ["dom", "esnext"],
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "types": ["vite/client", "vite-plugin-svg-icons/client", "ant-design-vue/typings/global"],
+    "types": ["vite/client", "ant-design-vue/typings/global"],
     "removeComments": true,
     "paths": {
       "@/*": ["src/*"],
-      "#/*": ["types/*"],
+      "#/*": ["types/*"]
     }
   },
   "include": [
@@ -37,7 +37,7 @@
     "build/**/*.ts",
     "types/**/*.d.ts",
     "types/**/*.ts",
-    "vite.config.ts",
+    "vite.config.ts"
   ],
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }

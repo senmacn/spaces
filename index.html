@@ -7,7 +7,43 @@
     <title>Vite App</title>
   </head>
   <body>
+    <div data-tauri-drag-region class="windows-tools">
+      <div id="titlebar-minimize" class="titlebar-button ant-btn ant-btn-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M20 14H4v-4h16" />
+        </svg>
+      </div>
+      <div id="titlebar-maximize" class="titlebar-button ant-btn ant-btn-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M4 4h16v16H4V4m2 4v10h12V8H6Z" />
+        </svg>
+      </div>
+      <div id="titlebar-close" class="titlebar-button ant-btn ant-btn-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+          />
+        </svg>
+      </div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
+  <script type="module">
+    import { appWindow } from '@tauri-apps/api/window';
+
+    function minimize() {
+      appWindow.minimize();
+    }
+    function toggleMaximize() {
+      appWindow.toggleMaximize();
+    }
+    function close() {
+      appWindow.close();
+    }
+    document.getElementById('titlebar-minimize')?.addEventListener('click', minimize);
+    document.getElementById('titlebar-maximize')?.addEventListener('click', toggleMaximize);
+    document.getElementById('titlebar-close')?.addEventListener('click', close);
+  </script>
 </html>

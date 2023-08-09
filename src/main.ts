@@ -5,7 +5,7 @@ import Antd from 'ant-design-vue';
 import { setupStore } from './store';
 import router from './routes';
 import './style.less';
-import 'ant-design-vue/dist/antd.css';
+import './style.less';
 
 if (process.env.NODE_ENV === 'development') {
   devtools.connect('http://localhost', 8098);

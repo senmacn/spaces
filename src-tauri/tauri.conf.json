@@ -5,7 +5,7 @@
   },
   "build": {
     "distDir": "../dist",
-    "devPath": "http://localhost:5173",
+    "devPath": "http://localhost:5173/#/starting",
     "beforeDevCommand": "pnpm vite:dev",
     "beforeBuildCommand": "pnpm vite:build"
   },
@@ -45,23 +45,77 @@
       "active": false
     },
     "allowlist": {
-      "all": true
+      "all": true,
+      "fs": {
+        "all": true,
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "scope": [
+          "**"
+        ],
+        "writeFile": true
+      },
+      "window": {
+        "all": true,
+        "create": false,
+        "center": true,
+        "requestUserAttention": true,
+        "setResizable": true,
+        "setTitle": true,
+        "maximize": true,
+        "unmaximize": true,
+        "minimize": true,
+        "unminimize": true,
+        "show": true,
+        "hide": true,
+        "close": true,
+        "setDecorations": true,
+        "setAlwaysOnTop": true,
+        "setContentProtected": true,
+        "setSize": true,
+        "setMinSize": true,
+        "setMaxSize": true,
+        "setPosition": true,
+        "setFullscreen": true,
+        "setFocus": true,
+        "setIcon": true,
+        "setSkipTaskbar": true,
+        "setCursorGrab": true,
+        "setCursorVisible": true,
+        "setCursorIcon": true,
+        "setCursorPosition": true,
+        "setIgnoreCursorEvents": true,
+        "startDragging": true,
+        "print": true
+      }
     },
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 200,
         "resizable": true,
+        "center": true,
         "title": "spaces",
-        "width": 800,
-        "minWidth": 800,
-        "minHeight": 600,
+        "width": 520,
+        "minWidth": 520,
+        "minHeight": 200,
         "hiddenTitle": true,
-        "titleBarStyle": "Overlay"
+        "titleBarStyle": "Overlay",
+        "decorations": false
       }
     ],
     "security": {
       "csp": null
+    },
+    "systemTray": {
+      "iconPath": "icons/web/icon-512.png",
+      "iconAsTemplate": true
     }
   }
 }

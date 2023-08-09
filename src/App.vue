@@ -1,30 +1,36 @@
 <template>
-  <a-config-provider :locale="zhCN">
-    <a-layout class="spaces">
-      <a-layout-header>
-        <spaces-header></spaces-header>
-      </a-layout-header>
-      <a-layout>
-        <a-layout-sider width="160px">
-          <spaces-sider></spaces-sider>
-        </a-layout-sider>
-        <a-layout-content>
-          <router-view />
-        </a-layout-content>
-      </a-layout>
-    </a-layout>
+  <a-config-provider
+    :locale="zhCN"
+    :theme="{
+      algorithm: theme.darkAlgorithm,
+    }"
+  >
+    <transition name="starting">
+      <router-view />
+    </transition>
   </a-config-provider>
 </template>
 
 <script setup lang="ts">
-  import SpacesHeader from '@/components/spaces-header/spaces-header.vue';
-  import SpacesSider from '@/components/spaces-sider/spaces-sider.vue';
   import zhCN from 'ant-design-vue/es/locale/zh_CN';
+  import { theme } from 'ant-design-vue';
+  import TauriPersist from '@/lib/tauri-persist';
+
+  TauriPersist.getInstance().init();
 </script>
 
-<style lang="less" scoped>
-  .spaces {
-    height: 100vh;
-    width: 100vw;
+<style lang="less">
+  .starting-enter-active {
+    transition: all 0.2s ease-out;
+  }
+
+  .starting-leave-active {
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+
+  .starting-enter-from,
+  .starting-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
   }
 </style>

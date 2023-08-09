@@ -1,28 +1,19 @@
-use diesel::{prelude::*, sql_query};
+use diesel::prelude::*;
 use diesel::sqlite::SqliteConnection;
 use std::fs;
 use std::path::Path;
 
 use crate::utils::path::full_path;
 
-diesel::table! {
-    project_item (uuid) {
-        uuid -> VarChar,
-        name -> VarChar,
-        description -> VarChar,
-    }
-}
+use super::procedures::{CREATE_TABLE_PROJECT_ITEM, CREATE_TABLE_START_SCHEME};
 
-struct User ();
-
-// Check if a database file exists, and create one if it does not.
 pub fn init_db() -> SqliteConnection {
     if !db_file_exists() {
         create_db_file();
     }
-    
+
     let mut conn = get_connection();
-    let a =sql_query("Create Table `test` IF NOT EXISTS ").load::<User>(&mut conn);
+    db_init_tables(&mut conn);
     conn
 }
 
@@ -36,7 +27,6 @@ fn establish_connection() -> SqliteConnection {
     SqliteConnection::establish(&db_path)
         .unwrap_or_else(|_| panic!("Error connecting to {}", db_path))
 }
-
 
 // Create the database file.
 fn create_db_file() {
@@ -58,7 +48,15 @@ fn db_file_exists() -> bool {
     Path::new(&db_path).exists()
 }
 
-// Get the path where the database file should be located.
+fn db_init_tables(conn: &mut SqliteConnection) {
+    diesel::sql_query(CREATE_TABLE_PROJECT_ITEM)
+        .execute(conn)
+        .expect("Error executing create project_item table SQL query");
+    diesel::sql_query(CREATE_TABLE_START_SCHEME)
+        .execute(conn)
+        .expect("Error executing create table start_scheme SQL query");
+}
+
 fn get_db_path() -> String {
     String::from(full_path("database.sqlite").to_str().unwrap())
 }

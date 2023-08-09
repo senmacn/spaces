@@ -9,22 +9,23 @@
     "vite:build": "vite build",
     "test": "vitest",
     "devtools": "pnpm vue-devtools",
-    "ts-check": "vue-tsc --noEmit",
+    "ts-check": "tsc --noEmit -p tsconfig.json",
     "preview": "vite preview",
     "check": "cd src-tauri && cargo check"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
-    "@tauri-apps/api": "1.3.0",
+    "@tauri-apps/api": "1.4.0",
     "@vue/shared": "^3.3.4",
     "@vueuse/core": "^10.2.1",
-    "ant-design-vue": "^3.2.20",
+    "ant-design-vue": "4.0.0",
+    "nanoid": "^4.0.2",
     "pinia": "^2.1.4",
     "vue": "3.3.2",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.3.1",
+    "@tauri-apps/cli": "1.4.0",
     "@types/node": "20.1.4",
     "@vitejs/plugin-vue": "4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
