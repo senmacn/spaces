@@ -79,7 +79,6 @@
   const filterRef = ref<FilterType>(FilterType.ALL);
   function handleChangeFilterType(type: FilterType) {
     filterRef.value = type;
-
     state.setFilter(type);
   }
 

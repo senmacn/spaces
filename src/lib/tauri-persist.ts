@@ -46,7 +46,7 @@ export default class TauriPersist {
   async updateProjectItem(item: ProjectItem) {
     const projectItem = Object.assign({}, item);
     // tauri 接口需要 string 类型
-    Reflect.set(projectItem, 'favorite', projectItem.favorite ? '1' : '0');
+    Reflect.set(projectItem, 'favorite', projectItem.favorite);
     await invoke('update_project_item', { item: projectItem });
     const projectState = useProjectStore();
     projectState.getProjectItems.forEach((v) => {

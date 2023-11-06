@@ -3,19 +3,19 @@
     windows_subsystem = "windows"
 )]
 
-use std::sync::Mutex;
-
-use database::db::init_db;
-use diesel::SqliteConnection;
-use handler::*;
-use system_tray::{create_system_tray, handler_system_tray_event};
-use tauri::Manager;
-
 mod database;
 mod error;
 mod handler;
 mod system_tray;
 mod utils;
+
+use std::sync::Mutex;
+
+use crate::database::db::init_db;
+use crate::handler::*;
+use diesel::SqliteConnection;
+use system_tray::{create_system_tray, handler_system_tray_event};
+use tauri::Manager;
 
 pub struct UserManagementWrapper(pub Mutex<UserManagement>);
 

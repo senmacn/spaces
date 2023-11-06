@@ -1,6 +1,6 @@
 <template>
   <div class="starting-wrapper">
-    <div class="loading">初始化</div>
+    <div class="loading">Loading...</div>
   </div>
 </template>
 
@@ -42,7 +42,7 @@
   }
 
   .loading::after {
-    content: '初始化';
+    content: 'Loading...';
     position: absolute;
     left: 1px;
     top: 0;
