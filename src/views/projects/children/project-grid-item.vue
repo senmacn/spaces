@@ -86,7 +86,7 @@
 
   function handleSetStar(favorite) {
     persist.updateProjectItemProperty(props.project.id, {
-      favorite: String(favorite ? 1 : 0),
+      favorite,
     });
   }
 

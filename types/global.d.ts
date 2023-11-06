@@ -23,6 +23,8 @@ declare global {
     [K in keyof T]?: string;
   };
 
+  declare type OptionalValues<T> = T[keyof T];
+
   declare type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
   declare type Nullable<T> = T | null;

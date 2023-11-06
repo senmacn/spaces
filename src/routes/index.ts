@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Home from '../views/home/home-index.vue';
 import Projects from '../views/projects/projects-index.vue';
 import Starting from '../views/starting/starting-index.vue';
-import Spaces from '../Spaces.vue';
+import Spaces from '../spaces.vue';
 
 const routes: RouteRecordRaw[] = [
   {

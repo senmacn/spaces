@@ -1,4 +1,4 @@
-use tauri::{AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu};
+use tauri::{AppHandle, CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu};
 
 pub fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("quit".to_string(), "退出");
@@ -7,7 +7,7 @@ pub fn create_system_tray() -> SystemTray {
     system_tray
 }
 
-pub fn handler_system_tray_event(app: &AppHandle, event: SystemTrayEvent) {
+pub fn handler_system_tray_event(_app: &AppHandle, event: SystemTrayEvent) {
     match event {
         SystemTrayEvent::LeftClick {
             position: _,

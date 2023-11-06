@@ -72,7 +72,7 @@
     name: '',
     description: '',
     path: '',
-    favorite: '0',
+    favorite: false,
     icon: '',
   };
   const formModelRef = ref(Object.assign({}, initData));

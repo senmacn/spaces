@@ -28,7 +28,7 @@ export default class TauriPersist {
     const projectItem = Object.assign({}, item);
     const defaultSchemeId = getRandomId();
     Reflect.set(projectItem, 'default_scheme', defaultSchemeId);
-    Reflect.set(projectItem, 'favorite', projectItem.favorite === '1' ? true : false);
+    Reflect.set(projectItem, 'favorite', projectItem.favorite);
     // 这个地方default_scheme不会自动转换
     await invoke('add_project_item', { item: projectItem });
     const projectState = useProjectStore();
@@ -45,7 +45,8 @@ export default class TauriPersist {
 
   async updateProjectItem(item: ProjectItem) {
     const projectItem = Object.assign({}, item);
-    Reflect.set(projectItem, 'favorite', projectItem.favorite === '1' ? true : false);
+    // tauri 接口需要 string 类型
+    Reflect.set(projectItem, 'favorite', projectItem.favorite ? '1' : '0');
     await invoke('update_project_item', { item: projectItem });
     const projectState = useProjectStore();
     projectState.getProjectItems.forEach((v) => {
@@ -56,19 +57,23 @@ export default class TauriPersist {
   }
 
   async updateProjectItemProperty(id: string, updates: OptionalStringKeys<ProjectItem>) {
-    await invoke('update_project_item_property', { id, updates });
-    const projectState = useProjectStore();
-    projectState.getProjectItems.forEach((v) => {
-      if (v.id === id) {
-        Object.assign(v, updates);
-        if (Reflect.has(updates, 'default_scheme')) {
-          Reflect.set(v, 'defaultScheme', Reflect.get(updates, 'default_scheme'));
-        }
-        if (Reflect.has(updates, 'used_at')) {
-          Reflect.set(v, 'usedAt', Reflect.get(updates, 'd'));
-        }
+    try {
+      if (Reflect.has(updates, 'favorite')) {
+        Reflect.set(updates, 'favorite', updates.favorite ? '1' : '0');
       }
-    });
+      await invoke('update_project_item_property', { id, updates });
+      const projectState = useProjectStore();
+      projectState.getProjectItems.forEach((v) => {
+        if (v.id === id) {
+          Object.keys(updates).forEach((key) => {
+            const [jsKey, value] = getJSEntries(key, Reflect.get(updates, key));
+            Reflect.set(v, jsKey, value);
+          });
+        }
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   async deleteProjectItem(id: string) {
@@ -105,5 +110,21 @@ export default class TauriPersist {
       this._tauri = new TauriPersist();
       return this._tauri;
     }
+  }
+}
+
+function getJSEntries(
+  key: string,
+  value: OptionalValues<ProjectItem>,
+): [string, OptionalValues<ProjectItem>] {
+  switch (key) {
+    case 'default_scheme':
+      return ['defaultScheme', value];
+    case 'used_at':
+      return ['usedAt', value];
+    case 'favorite':
+      return ['favorite', (value == '1') as any];
+    default:
+      return [key, value];
   }
 }

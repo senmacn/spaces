@@ -5,9 +5,11 @@
       algorithm: theme.darkAlgorithm,
     }"
   >
-    <transition name="starting">
-      <router-view />
-    </transition>
+  <router-view v-slot="{ Component }">
+  <transition name="starting">
+    <component :is="Component" />
+  </transition>
+</router-view>
   </a-config-provider>
 </template>
 
